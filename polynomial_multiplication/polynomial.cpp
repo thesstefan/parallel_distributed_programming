@@ -1,5 +1,5 @@
 #include "polynomial.h"
-#include "multiplication.h"
+#include "multiplication/sequential_multiplication.h"
 
 #include <random>
 #include <ostream>
@@ -25,6 +25,10 @@ void Polynomial::random_init(int degree, int min_coefficient, int max_coefficien
     for (int i = 0; i <= degree; ++i) {
         coefficients.push_back(distribution(gen));
     }
+}
+
+const std::vector<int>& Polynomial::get_coefficients() const {
+    return coefficients;
 }
 
 Polynomial Polynomial::operator+(const Polynomial& rhs) const {
@@ -120,6 +124,9 @@ const int& Polynomial::operator[](int index) const {
 
 std::ostream& operator<<(std::ostream& os, const Polynomial& p) {
     for (std::size_t i = 0; i < p.coefficients.size(); ++i) {
+        if (!p.coefficients[i])
+            continue;
+
         os << p.coefficients[i] << " * x^" << i;
         if (i != p.coefficients.size() - 1) {
             os << " + ";
@@ -127,4 +134,8 @@ std::ostream& operator<<(std::ostream& os, const Polynomial& p) {
     }
 
     return os;
+}
+
+bool Polynomial::operator==(const Polynomial& rhs) const {
+    return coefficients == rhs.coefficients;
 }

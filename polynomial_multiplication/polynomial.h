@@ -29,8 +29,11 @@ class Polynomial {
         Polynomial operator-(const Polynomial& rhs) const;
         Polynomial operator*(const Polynomial& rhs) const;
         Polynomial operator>>(int shift);
+        bool operator==(const Polynomial& rhs) const;
 
         const int& operator[] (int) const;
+
+        const std::vector<int>& get_coefficients() const;
 
         friend std::ostream& operator<< (std::ostream& os, const Polynomial& p);
 

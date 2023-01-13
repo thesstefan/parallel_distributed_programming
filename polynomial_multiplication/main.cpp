@@ -2,7 +2,8 @@
 #include <iostream>
 
 #include "polynomial.h"
-#include "multiplication.h"
+#include "multiplication/sequential_multiplication.h"
+#include "multiplication/threaded_multiplication.h"
 
 static constexpr bool USE_DEFAULT_POLYNOMIALS = false;
 static constexpr int RANDOM_POLYNOMIAL_MAX_DEGREE = 10000;
@@ -38,9 +39,9 @@ void run(Polynomial& p1, const Polynomial& p2,
     }
 
     std::chrono::system_clock::time_point stopTime = std::chrono::system_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stopTime - startTime).count();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stopTime - startTime).count();
 
-    std::cout << "Execution time = " << duration << "us" << std::endl << std::endl;
+    std::cout << "Execution time = " << duration << "ms" << std::endl << std::endl;
 }
 
 int main() {
